@@ -5,12 +5,29 @@ import program_3 from '../../assets/program-3.jpg'
 import program1_icon from '../../assets/DSA.png'
 import program2_icon from '../../assets/AIML.png'
 import program3_icon from '../../assets/MERN.png'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Programs = () => {
+
+    const [programs, setPrograms] = useState([]);
+
+    useEffect(() => {
+      const fetchPrograms = async () => {
+        try {
+          const response = await axios.get("https://edtech-server-beige.vercel.app/");
+          setPrograms(response.data);
+        } catch (error) {
+          console.error('Error fetching Programs data:', error);
+        }
+      };
+      fetchPrograms();
+    }, []);
 
   return (
     <div className="programs">
         <div className="program">
+            {programs}
             <img src={program_1} alt="" />
             <div className="caption">
                 <img src={program1_icon} alt="" />
